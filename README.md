@@ -30,3 +30,4 @@ A production-grade backend project built to master modern backend engineering co
 - Express Architecture
 - MongoDB & Mongoose
 - JWT Authentication
+- Refresh Tokens & Protected Routes
