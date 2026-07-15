@@ -1,12 +1,10 @@
 import { verifyAccessToken } from "../utils/jwt.util.js";
+import UnauthorizedError from "../errors/UnauthorizedError.js";
 
 const authMiddleware = (req, res, next) => {
     const authHeader = req.get("Authorization");
-    if (!authHeader || !authHeader.startsWith("Bearer")) {
-        return res.status(401).json({
-            success: false,
-            message: "Unauthorized"
-        })
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+        throw new UnauthorizedError("Authorization token required.");
     };
     const token = authHeader.split(" ")[1];
 
@@ -19,10 +17,7 @@ const authMiddleware = (req, res, next) => {
         };
         next();
     } catch (error) {
-        return res.status(401).json({
-            success: false,
-            message: "Invalid or expired token"
-        })
+        throw new UnauthorizedError("Invalid or expired token.");
     };
 };
 
