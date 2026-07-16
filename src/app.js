@@ -5,6 +5,9 @@ import notFoundMiddleware from "./middlewares/notFound.middleware.js";
 import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/error.middleware.js";
+// import userRouter from "./routes/user.route.js";
+
+const API_PREFIX = "/api/v1";
 
 const app = express();
 
@@ -13,8 +16,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.use("/api/v1", healthRouter);
-app.use("/api/v1/auth", authRouter);
+app.use(`${API_PREFIX}`, healthRouter);
+app.use(`${API_PREFIX}/auth`, authRouter);
+// app.use(`${API_PREFIX}/users`, userRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
